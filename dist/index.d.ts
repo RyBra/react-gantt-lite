@@ -11,6 +11,7 @@ interface GanttTaskActivityRef {
     id: number;
     name: string;
     category: string;
+    status?: string;
 }
 interface GanttTask {
     id: GanttId;
@@ -56,6 +57,19 @@ interface GanttLink {
     to: GanttId;
     type?: GanttLinkType;
 }
+interface GanttThemeColors {
+    taskBarBg?: string;
+    taskBarBorder?: string;
+    taskBarSelectedBorder?: string;
+    todayLine?: string;
+    gridLine?: string;
+    headerTodayBg?: string;
+    headerTodayText?: string;
+    cardBg?: string;
+    sidebarBg?: string;
+    headerBg?: string;
+    textColor?: string;
+}
 interface GanttChartProps {
     tasks: GanttTask[];
     links?: GanttLink[];
@@ -82,6 +96,10 @@ interface GanttChartProps {
         rowHeightPx?: number;
         minTaskBarWidthPx?: number;
     };
+    theme?: GanttThemeColors;
+    activityStatusColors?: Record<string, string>;
+    weekNumbering?: 'fixed52' | 'iso';
+    weekHeaderMode?: 'date' | 'week' | 'date+week';
     renderTaskBar?: (ctx: {
         task: GanttTask;
         leftPercent: number;
@@ -96,6 +114,9 @@ interface GanttChartProps {
     onSelectedTaskChange?: (taskId: GanttId | null) => void;
     onTaskClick?: (task: GanttTask, event: MouseEvent) => void;
     onTaskHover?: (task: GanttTask | null) => void;
+    onTaskDoubleClick?: (task: GanttTask, event: MouseEvent) => void;
+    onTaskContextMenu?: (task: GanttTask, event: MouseEvent) => void;
+    onTaskLongPress?: (task: GanttTask, event: MouseEvent) => void;
     onRangeChange?: (range: {
         start: Date;
         end: Date;
@@ -145,4 +166,4 @@ interface GanttFiltersProps {
 
 declare const GanttChart: React.FC<GanttChartProps>;
 
-export { GanttChart, type GanttChartProps, type GanttFilters, type GanttFiltersProps, type GanttGroupBy, type GanttId, type GanttLink, type GanttLinkType, type GanttTask, type GanttTaskActivityRef, type GanttTaskGroupRef, type GanttTaskStatus, type GanttTimeScale, type GanttViewConfig };
+export { GanttChart, type GanttChartProps, type GanttFilters, type GanttFiltersProps, type GanttGroupBy, type GanttId, type GanttLink, type GanttLinkType, type GanttTask, type GanttTaskActivityRef, type GanttTaskGroupRef, type GanttTaskStatus, type GanttThemeColors, type GanttTimeScale, type GanttViewConfig };
